@@ -1,26 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <LogoAndButtons /> <!-- 引入 Logo 和按钮组件 -->
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <WaveBackground /> <!-- 更新组件名称 -->
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
+import WaveBackground from './components/bolang.vue';
+import LogoAndButtons from './components/Logo and buttons.vue'; // 引入 Logo 和按钮组件
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    WaveBackground,
+    LogoAndButtons // 注册组件
+  },
+  methods: {
+    goToHome() {
+      console.log('返回主页面');
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
