@@ -1,0 +1,50 @@
+@keyframes wave-animation {
+    0% {
+        background-position-x: 1000px;
+    }
+    100% {
+        background-position-x: 0px;
+    }
+}
+
+@keyframes wave-animation-reverse {
+    0% {
+        background-position-x: 0px;
+    }
+    100% {
+        background-position-x: 1000px;
+    }
+}
+
+.wave-background {
+    position: fixed; /* 固定在页面底部 */
+    bottom: 0;
+    height: var(--wave-height); /* 使用变量控制高度 */
+    width: 100%;
+    background-image: url('../image/wave.png'); /* 修复路径 */
+    background-size: 1000px var(--wave-height); /* 调整背景大小 */
+    z-index: -1; /* 确保波浪在所有其他内容的下方 */
+}
+
+.wave-layer1 {
+    opacity: 1;
+    animation: wave-animation 4s linear infinite;
+}
+
+.wave-layer2 {
+    opacity: 0.5;
+    bottom: 10px; /* 调整 bottom 值，避免与其他层冲突 */
+    animation: wave-animation-reverse 4s linear infinite;
+}
+
+.wave-layer3 {
+    opacity: 0.2;
+    bottom: 15px; /* 调整 bottom 值，避免与其他层冲突 */
+    animation: wave-animation 3s linear infinite;
+}
+
+.wave-layer4 {
+    opacity: 0.7;
+    bottom: 20px; /* 调整 bottom 值，避免与其他层冲突 */
+    animation: wave-animation-reverse 3s linear infinite;
+}
