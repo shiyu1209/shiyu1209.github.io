@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-oj4zbsuz> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/png" href="/public/image/favicon/android-chrome-192x192.png"><meta name="generator" content="Astro v5.8.0"><title>sy</title><link rel="stylesheet" href="/src/layouts/button.css"><style>html,body{margin:0;width:100%;height:100%}
+.background[data-astro-cid-4sw3lx7b]{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-image:url(/_astro/cat.CgWDd1by.jpg);background-size:cover;background-position:center}
+.fish-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:100;overflow:hidden}
+</style></head> <body data-astro-cid-oj4zbsuz>  <div class="background" data-astro-cid-4sw3lx7b></div> <div id="fish-container" class="fish-container"></div> <script>
+// 鱼动画参数
+const fishCount = 7; // 鱼的数量
+const splashCount = 3; // 水花数量
+const minDelay = 1000; // 最小生成间隔(ms)
+const maxDelay = 3000; // 最大生成间隔(ms)
+const minSpeed = 1; // 最小下落速度
+const maxSpeed = 2; // 最大下落速度
+
+// 等待DOM加载完成
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('FishAnimation script loaded');
+  const container = document.getElementById('fish-container');
+  
+  // 随机生成鱼
+  function createFish() {
+    const fish = document.createElement('img');
+    const fishNum = Math.floor(Math.random() * fishCount) + 1;
+    fish.src = `/image/fish/${fishNum}.gif`;
+    fish.className = 'fish';
+    
+    // 随机位置和速度
+    const leftPos = Math.random() * 100;
+    const speed = minSpeed + Math.random() * (maxSpeed - minSpeed);
+    
+    fish.style.left = `${leftPos}%`;
+    fish.style.top = '-100px';
+    fish.style.width = '100px';
+    fish.style.height = 'auto';
+    fish.style.position = 'absolute';
+    fish.style.setProperty('--speed', speed);
+    
+    container.appendChild(fish);
+    console.log('Fish created at', leftPos, '% with speed', speed);
+    
+    // 鱼下落动画
+    let startTime = null;
+    const duration = 5000 / speed; // 下落持续时间(ms)
+    
+    function animateFish(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = (timestamp - startTime) / duration;
+      
+      if (progress < 1) {
+        const newTop = -100 + progress * (window.innerHeight + 100);
+        fish.style.top = `${newTop}px`;
+        requestAnimationFrame(animateFish);
+      } else {
+        // 鱼到达底部时创建水花
+        createSplash(leftPos);
+        fish.remove();
+        console.log('Fish reached bottom');
+      }
+    }
+    
+    requestAnimationFrame(animateFish);
+    
+    // 设置下一个鱼的生成时间
+    setTimeout(createFish, minDelay + Math.random() * (maxDelay - minDelay));
+  }
+  
+  // 创建水花效果
+  function createSplash(leftPos) {
+    const splash = document.createElement('img');
+    const splashNum = Math.floor(Math.random() * splashCount) + 8;
+    splash.src = `/image/fish/${splashNum}.gif`;
+    splash.className = 'splash';
+    splash.style.left = `${leftPos}%`;
+    splash.style.bottom = '0';
+    splash.style.width = '150px';
+    splash.style.height = 'auto';
+    splash.style.position = 'absolute';
+    
+    container.appendChild(splash);
+    console.log('Splash created at', leftPos, '%');
+    
+    // 水花显示一段时间后移除
+    setTimeout(() => {
+      splash.remove();
+      console.log('Splash removed');
+    }, 1000);
+  }
+  
+  // 开始生成鱼
+  createFish();
+});
+</script>  <div class="navigation"> <ul> <li class="active"> <a href="/"> <span class="icon"><ion-icon name="home"></ion-icon></span> <span class="text">Home</span> </a> </li> <li> <a href="/search"> <span class="icon"><ion-icon name="search"></ion-icon></span> <span class="text">Search</span> </a> </li> <li> <a href="/music"> <span class="icon"><ion-icon name="heart"></ion-icon></span> <span class="text">Music</span> </a> </li> <li> <a href="/notice"> <span class="icon"><ion-icon name="notifications"></ion-icon></span> <span class="text">Notice</span> </a> </li> <li> <a href="/profile"> <span class="icon"><ion-icon name="person"></ion-icon></span> <span class="text">Profile</span> </a> </li> <div class="indicator"></div> </ul> </div> <script type="module">const e=document.querySelectorAll(".navigation ul li");function a(){e.forEach(t=>t.classList.remove("active")),this.classList.add("active")}e.forEach(t=>t.addEventListener("click",a));document.addEventListener("DOMContentLoaded",()=>{const t=window.location.pathname,c=t==="/"?0:t==="/search"?1:t==="/music"?2:t==="/notice"?3:t==="/profile"?4:-1;c>=0&&(e.forEach(i=>i.classList.remove("active")),e[c].classList.add("active"))});</script>  <!-- Ionicons JS for menu icons --> <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> </body> </html> 
