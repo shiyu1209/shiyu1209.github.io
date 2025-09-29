@@ -1,0 +1,1 @@
+import{i as t}from"./index-DYaDPK3h.js";function i(){function e(){const n=window.innerHeight*.01;document.documentElement.style.setProperty("--real-vh",`${n}px`)}e(),window.addEventListener("resize",e),t(()=>{window.removeEventListener("resize",e)})}export{i as u};
